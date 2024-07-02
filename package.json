@@ -4,6 +4,10 @@
   "publisher": "StevenDesroches",
   "description": "Because backing up shouldn't be tiring",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevenDesroches/tired2backup"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
