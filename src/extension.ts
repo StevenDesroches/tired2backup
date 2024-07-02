@@ -10,20 +10,34 @@ export function activate(context: vscode.ExtensionContext) {
 		let activeEditor = vscode.window.activeTextEditor;
 		if (!activeEditor)
 			return;
-		create_backup(activeEditor.document.uri.fsPath);
+
+		create_backup(activeEditor.document);
 	});
 	context.subscriptions.push(tired2backupCreateCommand);
 }
 
-function create_backup(path: string) {
+function create_backup(document: vscode.TextDocument) {
+	let path = document.uri.fsPath;
+
 	let pathArray = path.split('\\');
 	let filename = pathArray.pop();
 	if (!filename)//no file, no backup!
 		return;
 
-	let fileBasenameArray = filename.split('.');
-	let ext = fileBasenameArray.pop() ?? "";
-	let fileBasename = fileBasenameArray.join('.');
+	let separator = '.';
+
+	let fileBasenameArray = filename.split(separator);
+
+	let ext;
+	switch (document.languageId) {
+		case 'blade':
+			ext = [fileBasenameArray.pop(), fileBasenameArray.pop()].reverse().join('.') ?? "";
+			break;
+		default:
+			ext = fileBasenameArray.pop() ?? "";
+			break;
+	}
+	let fileBasename = fileBasenameArray.join(separator);
 
 	let folderPath = pathArray.join('\\');
 	let BackupFolderPath = folderPath + `\\${BACKUP_FOLDER_NAME}`;

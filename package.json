@@ -1,8 +1,9 @@
 {
   "name": "tired2backup",
   "displayName": "Tired2Backup",
+  "publisher": "StevenDesroches",
   "description": "Because backing up shouldn't be tiring",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.90.0"
   },
